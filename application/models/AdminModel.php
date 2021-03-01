@@ -19,7 +19,7 @@ class AdminModel extends Model {
     }
 
     public function getUsersCount() {
-        $sql = "SELECT COUNT(*) FROM users";
+        $sql = "SELECT COUNT(*) FROM users WHERE role_id=3";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $res = $stmt->fetchColumn();

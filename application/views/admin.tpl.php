@@ -94,7 +94,7 @@
                     <h1 class="page-header">Заказы</h1>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div class="panel"><button class="btn btn-danger btn-lg" data-ng-click="newOrder()">Создать заказ</button>
+                    <div class="panel panel-new"><button class="btn btn-danger btn-lg" data-ng-click="newOrder()">Создать заказ</button>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->

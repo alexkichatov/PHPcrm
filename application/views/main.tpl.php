@@ -21,7 +21,7 @@
                         
                         <div class="account-wall">
                             <h1 class="text-center login-title">Вход</h1>
-                            <p class="subtitle">Логин: akichatov3, пароль: 123456</p>
+                            <p class="subtitle">Логин: admin, пароль: 123456</p>
                             <form method="post" class="form-signin" id="form-signin" name="form-signin">
                             <input type="hidden" name="action" value="login"> 
                                 <?php if(!empty($pageData['loginError'])) :?>

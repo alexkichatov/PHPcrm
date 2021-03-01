@@ -56,3 +56,9 @@ a {
     width: 20px;
     margin-right: 8px;
 }
+.page-header {
+    margin: 20px 0 20px;
+}
+.panel-new {
+    box-shadow: none;
+}
