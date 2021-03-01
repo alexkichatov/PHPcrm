@@ -45,14 +45,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Кабинет</a>
+                <a class="navbar-brand" href="/">Кабинет</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="/admin/profile">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -73,13 +73,13 @@
                     <ul class="nav" id="side-menu">
 
                         <li>
-                            <a href="/admin"><i class="fa fa-area-chart"></i> Заказы</a>
+                            <a href="/admin"><span class="order-img menu-img"></span> Заказы</a>
                         </li>
                         <li>
-                            <a href="/admin/products"><i class="fa fa-cart-plus"></i> Склад</a>
+                            <a href="/admin/products"><span class="product-img menu-img"></span> Склад</a>
                         </li>
                         <li>
-                            <a href="/admin/users"><i class="fa fa-user-o"></i> Клиенты</a>
+                            <a href="/admin/users"><span class="client-img menu-img"></span> Клиенты</a>
                         </li>
                     </ul>
                 </div>
@@ -125,10 +125,11 @@
                         </table>
                         
                         <h3>Покупатель:</h3>
-                        <p class="lead">ФИО: <strong><?php echo $pageData['orderInfo'][0]['fullName']; ?></strong></p>
-                        <p class="lead">Email: <strong><?php echo $pageData['orderInfo'][0]['email']; ?></strong></p>
-
-                        <button class="btn btn-success" data-ng-click="checkOrder(<?php echo $_GET['orderId']; ?>)">Одобрить</button>
+                        <p><strong>ФИО:</strong> <?php echo $pageData['orderInfo'][0]['fullName']; ?></p>
+                        <p><strong>Адрес:</strong> <?php echo $pageData['orderInfo'][0]['address']; ?></p>
+                        <p><strong>Телефон:</strong> <?php echo $pageData['orderInfo'][0]['phone']; ?></p>
+                        <p><strong>Email:</strong> <?php echo $pageData['orderInfo'][0]['email']; ?></p>
+                        <button class="btn btn-default" data-ng-click="editOrderClick(<?php echo $_GET['orderId']; ?>)">Редактировать</button>
                         <button class="btn btn-danger" data-ng-click="deleteOrder(<?php echo $_GET['orderId']; ?>)">Удалить</button>
                     </div>
                 </div>

@@ -45,14 +45,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Кабинет</a>
+                <a class="navbar-brand" href="/">Кабинет</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="/admin/profile">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -73,13 +73,13 @@
                     <ul class="nav" id="side-menu">
 
                         <li>
-                            <a href="/admin"><i class="fa fa-area-chart"></i> Заказы</a>
+                            <a href="/admin"><span class="order-img menu-img"></span> Заказы</a>
                         </li>
                         <li>
-                            <a href="/admin/products"><i class="fa fa-cart-plus"></i> Склад</a>
+                            <a href="/admin/products"><span class="product-img menu-img"></span> Склад</a>
                         </li>
                         <li>
-                            <a href="/admin/users"><i class="fa fa-user-o"></i> Клиенты</a>
+                            <a href="/admin/users"><span class="client-img menu-img"></span> Клиенты</a>
                         </li>
                     </ul>
                 </div>
@@ -92,6 +92,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Заказы</h1>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="panel"><button class="btn btn-danger btn-lg" data-ng-click="newOrder()">Создать заказ</button>
+                    </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -163,7 +167,18 @@
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Заказы
+                            <form name="searchOrderForm"  data-ng-submit="searchOrder()"  id="searchform">
+                                <div class="input-group">
+                                    <div class="form-outline" style="float: left;">
+                                        <input type="search" name="search" value="<?php echo $_GET['search'];?>" id="search"  class="form-control" />
+                                        <label class="form-label" for="form1">Поиск по номеру заказа</label>
+                                    </div>
+                                    <button class="btn btn-danger">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    
+                                </div>
+                            </form>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -174,9 +189,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>Номер заказа</th>
-                                                   <!-- <th>Дата</th>-->
                                                     <th>ФИО клиента</th>
-                                                    <th>Сумма</th>
+                                                    <th>Наименование</th>
+                                                    <th>Кол-во, шт.</th>
+                                                    <th>Сумма, руб.</th>
                                                     <th>Адрес</th>
                                                     <th>Телефон</th>
                                                     <th>Статус</th>
@@ -188,11 +204,13 @@
                                                     echo "<td>" . $value['id']. "</td>";
                                                   //  echo "<td>" . $value['total'] . "</td>";
                                                     echo "<td>" . $value['fullName'] . "</td>";
-                                                    echo "<td>" . $value['total'] . "</td>";
+                                                    echo "<td>" . $value['name'] . "</td>";
+                                                    echo "<td>" . $value['quantity'] . "</td>";
+                                                    echo "<td>" . $value['price']*$value['quantity'] . "</td>";
                                                     echo "<td>" . $value['address'] . "</td>";
                                                     echo "<td>" . $value['phone'] . "</td>";
                                                     echo "<td>" . $value['status'] . "</td>";
-                                                    echo "<td><button class='btn btn-default' data-ng-click='openOrderDetails(". $value['id'].")'>Просмотр</button><button class='btn btn-primary' data-ng-click='editOrder(". $value['id'].")'>Редактировать</button><button class='btn btn-danger' data-ng-click='deleteOrder(". $value['id'].")'>Удалить</button></td>";
+                                                    echo "<td><button class='btn btn-sm btn-default' data-ng-click='openOrderDetails(". $value['id'].")'>Просмотр</button><button class='btn btn-sm btn-default' data-ng-click='editOrder(". $value['id'].")'>Изменить</button><button class='btn btn-sm btn-danger' data-ng-click='deleteOrder(". $value['id'].")'>Удалить</button></td>";
                                                     
                                                 echo "</tr>";
                                                 }

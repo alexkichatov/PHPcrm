@@ -17,4 +17,42 @@
 .client-img {
     background-image: url("/images/employees-red.svg");
 }
+.btn.btn-sm {
+    margin-bottom: 2px;
+    margin-left: 5px;
+}
+table {
+  font-size: 13px;
+}
+.btn-danger {
+    background-color: #c42426;
+    border-color: #c42426;
+    color: #fff;
+}
 
+a {
+    color: #c42426;
+}
+
+.btn{
+  border-radius: 30px;
+  border: 1px solid #c42426;
+}
+.btn-default {
+    background-color: #fff;
+    color: #c42426;
+}
+#searchform .btn {
+  border-radius: 0;
+}
+.pagination > li > a, .pagination > li > span {
+    color: #c42426;
+}
+
+.menu-img {
+    background-size: 20px auto;
+    float: left;
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+}

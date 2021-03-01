@@ -27,10 +27,13 @@ class AdminModel extends Model {
     }
 
     public function getOrders() {
-        $sql = "SELECT
+        if (!isset($_GET['search'])) {
+                    $sql = "SELECT
                     orders.id,
                     orders.amount as total,
                     orders.status,
+                    productsInOrders.quantity,
+                    products.name,
                     products.price,
                     users.fullName,
                     users.address,
@@ -42,6 +45,27 @@ class AdminModel extends Model {
                 INNER JOIN products ON products.id = productsInOrders.product_id
                 GROUP BY orders.id
                         ";
+        } else {
+           $search = $_GET['search'];
+                   $sql = "SELECT
+                    orders.id,
+                    orders.amount as total,
+                    orders.status,
+                    productsInOrders.quantity,
+                    products.name,
+                    products.price,
+                    users.fullName,
+                    users.address,
+                    users.phone,
+                    users.email
+                FROM orders
+                INNER JOIN users ON users.id = orders.user_id
+                INNER JOIN productsInOrders ON productsInOrders.order_id = orders.id
+                INNER JOIN products ON products.id = productsInOrders.product_id
+                WHERE orders.id LIKE '%$search%'
+                GROUP BY orders.id
+                        ";
+        }
         $result = array();
         $stmt = $this->db->prepare($sql);
         $stmt->execute();

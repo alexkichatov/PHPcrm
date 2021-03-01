@@ -51,14 +51,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Кабинет</a>
+                <a class="navbar-brand" href="/">Кабинет</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="/admin/profile">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -79,13 +79,13 @@
                     <ul class="nav" id="side-menu">
 
                         <li>
-                            <a href="/admin"><i class="fa fa-area-chart"></i> Заказы</a>
+                            <a href="/admin"><span class="order-img menu-img"></span> Заказы</a>
                         </li>
                         <li>
-                            <a href="/admin/products"><i class="fa fa-cart-plus"></i> Склад</a>
+                            <a href="/admin/products"><span class="product-img menu-img"></span> Склад</a>
                         </li>
                         <li>
-                            <a href="/admin/users"><i class="fa fa-user-o"></i> Клиенты</a>
+                            <a href="/admin/users"><span class="client-img menu-img"></span> Клиенты</a>
                         </li>
                     </ul>
                 </div>
@@ -108,7 +108,18 @@
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i>Клиенты
+                            <form name="searchProductForm"  data-ng-submit="searchUser()"  id="searchform">
+                                    <div class="input-group">
+                                        <div class="form-outline" style="float: left;">
+                                            <input type="search" name="search" value="<?php echo $_GET['search'];?>" id="search"  class="form-control" />
+                                            <label class="form-label" for="form1">Поиск по ФИО</label>
+                                        </div>
+                                        <button class="btn btn-danger">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+
+                                    </div>
+                            </form>
                         </div>
 
 
@@ -120,20 +131,21 @@
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Имя</th>
-                                                    <th>Логин</th>
+                                                    <th>ФИО</th>
+                                                    <th>Адрес</th>
+                                                    <th>Телефон</th>
                                                     <th>Email</th>
-                                                    <th>Роль</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    foreach ($pageData['usersList'] as $key => $value) { ?>
-                                                        <tr data-ng-click="showEditForm(); getUserData(<?php echo $value['id']; ?>);">
+                                                    foreach ($pageData['clientList'] as $key => $value) { ?>
+                                                        <tr >
                                                             <td><?php echo $value['fullName']; ?></td>
-                                                            <td><?php echo $value['login']; ?></td>
+                                                            <td><?php echo $value['address']; ?></td>
+                                                            <td><?php echo $value['phone']; ?></td>
                                                             <td><?php echo $value['email']; ?></td>
-                                                            <td><?php echo $value['role']; ?></td>
+                                                            <td><button class="btn btn-sm btn-default" type="button" data-ng-click="showEditForm(); getUserData(<?php echo $value['id']; ?>);">Изменить</button><button class="btn btn-sm btn-danger" type="button" data-ng-click="deleteUser(<?php echo $value['id']; ?>)">Удалить</button></td>
                                                         </tr>
                                                     <?php } ?>
                                             </tbody>
@@ -170,42 +182,32 @@
                     <form class="form-horizontal" method="post" data-ng-submit="addNewUser()">
                         <fieldset>
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="newUser">ФИО</label>
-                                <div class="col-md-4">
+                                <label class="col-md-1 control-label" for="newUser">ФИО</label>
+                                <div class="col-md-6">
                                     <input id="newUser" name="newUser" data-ng-model="newUser" class="form-control input-md" required="true" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="newLogin">Логин</label>
-                                <div class="col-md-4">
-                                    <input id="newLogin" name="newLogin" data-ng-model="newLogin" class="form-control " required="true" type="text">
+                                <label class="col-md-1 control-label" for="newAddress">Адрес</label>
+                                <div class="col-md-6">
+                                    <input id="newAddress" name="newAddress" data-ng-model="newAddress" class="form-control " required="true" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="newEmail">Email</label>
-                                <div class="col-md-4">
+                                    <label class="col-md-1 control-label" for="newPhone">Телефон</label>
+                                    <div class="col-md-6">
+                                        <input id="newPhone" name="newPhone" data-ng-model="newPhone" class="form-control input-md" required="true" type="text">
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label" for="newEmail">Email</label>
+                                <div class="col-md-6">
                                     <input id="newEmail" name="newEmail" data-ng-model="newEmail" class="form-control input-md" required="true" type="email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="newPassword">Пароль</label>
-                                <div class="col-md-4">
-                                    <input id="newPassword" name="newPassword" data-ng-model="newPassword" class="form-control input-md" required="true" type="password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="newRole">Роль</label>
-                                <div class="col-md-4">
-                                    <select name="newRole" data-ng-model="newRole" class="form-control">
-                                        <option selected>Выберите роль</option>
-                                        <option value="1">Администратор</option>
-                                        <option value="2">Менеджер</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <div class="col-md-4 col-md-offset-4">
-                                    <button class="btn btn-success">Сохранить</button>
+                                    <button class="btn btn-danger">Сохранить</button>
                                 </div>
                             </div>
                         </fieldset>

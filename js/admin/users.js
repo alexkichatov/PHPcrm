@@ -11,6 +11,8 @@ users.controller("usersController", function($scope, $http, $window){
         }).then(function(result){
             $scope.userId = result.data.id;
             $scope.userLogin = result.data.login;
+            $scope.userAddress = result.data.address;
+            $scope.userPhone = result.data.phone;
             $scope.userEmail = result.data.email;
             $scope.userFullName = result.data.fullName;
             $scope.userRole = result.data.role;
@@ -42,7 +44,8 @@ users.controller("usersController", function($scope, $http, $window){
             method: "POST",
             url: "http://torex2.omnibank.ru/admin/users/updateUserData",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            data: $.param({id: $scope.userId, fullName: $scope.userFullName, login: $scope.userLogin, email: $scope.userEmail, role: $scope.newRole})
+           // data: $.param({id: $scope.userId, fullName: $scope.userFullName, login: $scope.userLogin, email: $scope.userEmail, role: $scope.newRole})
+            data: $.param({id: $scope.userId, fullName: $scope.userFullName, login: $scope.userLogin, email: $scope.userEmail, phone: $scope.userPhone, address: $scope.userAddress, role: $scope.newRole})
         }).then(function(result){
             alert(result.data.text);
             $window.location.reload();
@@ -61,16 +64,21 @@ users.controller("usersController", function($scope, $http, $window){
         });
     }
 
-    $scope.addNewUser = function() {
+    $scope.addNewUser = function () {
         $http({
             method: "POST",
             url: "http://torex2.omnibank.ru/admin/users/addNewUser",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            data: $.param({fullName: $scope.newUser, login: $scope.newLogin, email: $scope.newEmail, password: $scope.newPassword, role: $scope.newRole})
-        }).then(function(result){
+            data: $.param({fullName: $scope.newUser, address: $scope.newAddress, email: $scope.newEmail, phone: $scope.newPhone})
+        }).then(function (result) {
             alert(result.data.text);
             $window.location.reload();
         });
+    }
+    $scope.searchUser = function () {
+        $scope.search = angular.element("#search").val();
+        $window.location.href = '/admin/users/?search=' + $scope.search + '';
+
     }
 
     $scope.getRoles();
@@ -79,7 +87,8 @@ users.controller("usersController", function($scope, $http, $window){
 
 users.directive('editUser', function(){
     return {
-        templateUrl: "/application/views/edit-user-tpl.php",
+    //    templateUrl: "/application/views/edit-user-tpl.php",
+        templateUrl: "/application/views/edit-client-tpl.php",
         restrict: "E",
         replace: true,
         transclude: true,

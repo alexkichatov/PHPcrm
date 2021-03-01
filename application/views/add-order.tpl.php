@@ -89,7 +89,7 @@
             </nav>
 
             <div id="page-wrapper" data-ng-controller="orderController">
-                <?php if (isset($_GET['orderId']) && $_GET['orderId'] != '' && !empty($pageData['orderInfo'])) { ?>
+                
 
 
                     <div class="row">
@@ -107,13 +107,11 @@
                                     <th>Количество</th>
                                     <!--<th>Стоимость, руб.</th>-->
                                 </tr>
-                                <?php
-                                foreach ($pageData['orderInfo'] as $val) { ?>
                                     <tr>
                                         <td>
                                             
                                             <select id="productID" name="productID" class="form-control">
-                                                <?php foreach ($pageData['all Products'] as $product) { ?>
+                                                <?php print_r($pageData['all Products']); foreach ($pageData['all Products'] as $product) { ?>
                                                     <option <?php if($product['id']==$val['product_id']) {echo "selected";} ?> value="<?php echo $product['id']; ?>"><?php echo $product['name']; ?></option>
         <?php } ?>       
                                             </select>
@@ -122,7 +120,7 @@
                                         <td><input type="text" value="<?php echo $val['quantity']; ?>" id="orderQuantity" class="form-control"></td>
                                         <!-- <td><?php echo $sum; ?></td>-->
                                     </tr>
-    <?php } ?>
+    
                                 <tr>
                                     <input value="<?php echo $pageData['orderInfo'][0]['productsInOrders_id']; ?>" id="productsInOrders_id" type="hidden">
                                    <!-- <td><strong>Итого:</strong></td>
@@ -135,7 +133,7 @@
                             <h3>Покупатель:</h3>
                             <select name="userId" id="userId" class="form-control">
                                 <?php foreach ($pageData['getUsers'] as $users) { ?>
-                                    <option <?php if($users['id']==$val['user_id']) {echo "selected";} ?> value="<?php echo $users['id']; ?>"><?php echo $users['fullName']; ?></option>
+                                    <option <?php if($users['id']==$val['product_id']) {echo "selected";} ?> value="<?php echo $users['id']; ?>"><?php echo $users['fullName']; ?></option>
     <?php } ?>       
                             </select>
                             <h3>Статус</h3>
@@ -147,17 +145,12 @@
                                     </select>  
                             </div>
                             <div class="form-group">
-                            <button class="btn btn-danger" data-ng-click="editOrder(<?php echo $_GET['orderId']; ?>)">Сохранить</button>
+                            <button class="btn btn-danger" data-ng-click="addOrder(<?php echo $_GET['orderId']; ?>)">Сохранить</button>
                             </div>
                         </div>
                     </div>
-<?php } else { ?>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Заказ не найден</h2>
-                        </div>
-                    </div>
-<?php } ?>    
+
+                    
             </div>
             <!-- /#page-wrapper -->
 

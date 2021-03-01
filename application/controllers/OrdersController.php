@@ -44,14 +44,31 @@ class OrdersController extends Controller {
                     ['label' => 'доставляется', 'value' => 'доставляется'],
                     ['label' => 'отменен', 'value' => 'отменен'],
                 ];
-
-                //    print_r($this->pageData['orderInfo']);
             }
         }
         $this->pageTpl = "/application/views/edit-order.tpl.php";
         $this->view->render($this->pageTpl, $this->pageData);
     }
+    public function add() {
+        if (!$_SESSION['user']) {
+            header("Location: /");
+            exit();
+        }
 
+        $this->pageData['title'] = "Создание заказа";
+
+                $this->pageData['all Products'] = $this->model->getAllProducts();
+                $this->pageData['getUsers'] = $this->model->getUsers();
+                $this->pageData['orderStatus'] = [
+                    ['label' => 'в обработке', 'value' => 'в обработке'],
+                    ['label' => 'оплачен', 'value' => 'оплачен'],
+                    ['label' => 'доставляется', 'value' => 'доставляется'],
+                    ['label' => 'отменен', 'value' => 'отменен'],
+                ];
+
+        $this->pageTpl = "/application/views/add-order.tpl.php";
+        $this->view->render($this->pageTpl, $this->pageData);
+    }
     public function checkOrder() {
         if (isset($_POST['id'])) {
             $orderId = $_POST['id'];
@@ -71,7 +88,46 @@ class OrdersController extends Controller {
             echo json_encode(array("success" => true, "text" => "Ошибка"));
         }
     }
-
+    public function saveOrder() {
+        if(!$_SESSION['user']) {
+            header("Location: /");
+            return;
+        }
+        
+        if(!isset($_POST['orderID']) || trim($_POST['productID']) == '' || trim($_POST['userId']) == ''|| trim($_POST['orderStatus']) == ''|| trim($_POST['quantity']) == ''|| trim($_POST['productsInOrders_id']) == '') {
+            echo json_encode(array("success" => false, "text" => "Ошибка обновления данных"));
+        } else {
+            $orderID = $_POST['orderID'];
+            $productID = strip_tags(trim($_POST['productID']));
+            $userId = strip_tags(trim($_POST['userId']));
+            $orderStatus = strip_tags(trim($_POST['orderStatus']));
+            $orderQuantity = strip_tags(trim($_POST['quantity']));
+            $productsInOrders_id = strip_tags(trim($_POST['productsInOrders_id']));
+            $this->model->saveOrderInfo($orderID, $userId, $orderStatus);
+            $this->model->saveOrderProducts($productsInOrders_id, $orderID, $productID, $orderQuantity);
+            echo json_encode(array("success" => true, "text" => "Информация о заказе обновлена"));
+        }
+    }
+        public function addOrder() {
+        if(!$_SESSION['user']) {
+            header("Location: /");
+            return;
+        }
+        
+        if(isset($_POST['productID']) == '' || trim($_POST['userId']) == ''|| trim($_POST['orderStatus']) == ''|| trim($_POST['quantity']) == '') {
+            echo json_encode(array("success" => false, "text" => "Ошибка обновления данных"));
+        } else {
+        //    $orderID = $_POST['orderID'];
+            $productID = strip_tags(trim($_POST['productID']));
+            $userId = strip_tags(trim($_POST['userId']));
+            $orderStatus = strip_tags(trim($_POST['orderStatus']));
+            $orderQuantity = strip_tags(trim($_POST['quantity']));
+        //    $productsInOrders_id = strip_tags(trim($_POST['productsInOrders_id']));
+          $orderID = $this->model->addOrderInfo($userId, $orderStatus);
+          $this->model->addOrderProducts($orderID, $productID, $orderQuantity);
+            echo json_encode(array("success" => true, "text" => "Информация о заказе обновлена"));
+        }
+    }
     public function deleteOrder() {
         if (isset($_POST['id'])) {
             $orderId = $_POST['id'];

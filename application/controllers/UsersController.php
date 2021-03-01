@@ -26,6 +26,7 @@ class UsersController extends Controller{
 
         $this->pageData['title'] = "Клиенты";
         $this->pageData['usersList'] = $this->model->getUsers();
+        $this->pageData['clientList'] = $this->model->getClients();
         $this->view->render($this->pageTpl, $this->pageData);
 
     }
@@ -67,13 +68,13 @@ class UsersController extends Controller{
             header("Location: /");
         }
 
-        if(!empty($_POST) && !empty($_POST['id']) && !empty($_POST['fullName']) && !empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['role'])) {
+        if(!empty($_POST) && !empty($_POST['id']) && !empty($_POST['fullName']) && !empty($_POST['phone']) && !empty($_POST['email']) && !empty($_POST['address'])) {
             $userId = $_POST['id'];
             $userFullName = strip_tags(trim($_POST['fullName']));
-            $userLogin = strip_tags(trim($_POST['login']));
+            $userAddress = strip_tags(trim($_POST['address']));
             $userEmail = strip_tags(trim($_POST['email']));
-            $userRole = $_POST['role'];
-            $this->model->updateUserInfo($userId, $userFullName, $userLogin, $userEmail, $userRole);
+            $userPhone = $_POST['phone'];
+            $this->model->updateUserInfo($userId, $userFullName, $userAddress, $userEmail, $userPhone);
             echo json_encode(array("success" => true, "text" => "Данные пользователя сохранены"));    
         } else {
             echo json_encode(array("success" => false, "text" => "Заполните все данные"));
@@ -102,14 +103,16 @@ class UsersController extends Controller{
             header("Location: /");
         }
 
-        if(!empty($_POST) && !empty($_POST['fullName']) && !empty($_POST['password']) && !empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['role'])) {
+        if(!empty($_POST) && !empty($_POST['fullName']) && !empty($_POST['phone']) && !empty($_POST['address']) && !empty($_POST['email'])) {
             $newUser = strip_tags(trim($_POST['fullName']));
-            $newLogin = trim(strip_tags($_POST['login']));
+            $newLogin = trim(strip_tags($_POST['email']));
+            $newAddress = trim(strip_tags($_POST['address']));
+            $newPhone = trim(strip_tags($_POST['phone']));
             $newEmail = strip_tags(trim($_POST['email']));
             $newPassword = strip_tags(trim(md5($_POST['password'])));
             $passwordForEmail = strip_tags(trim($_POST['password']));
-            $newRole = $_POST['role'];
-            $this->model->addNewUser($newLogin, $newUser, $newEmail, $newPassword, $newRole);
+            $newRole = '3';
+            $this->model->addNewUser($newLogin, $newUser, $newEmail, $newPassword, $newRole, $newAddress, $newPhone);
             echo json_encode(array("success" => true, "text" => "Новый пользователь добавлен"));  
         } else {
             echo json_encode(array("success" => false, "text" => "Заполните все данные"));

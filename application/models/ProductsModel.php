@@ -4,7 +4,6 @@ class ProductsModel extends Model {
 
     public function getAllProducts() {
         $result = array();
-        echo $_GET['search'];
         if (!isset($_GET['search'])) {
             $sql = "SELECT * FROM products";
         } else {

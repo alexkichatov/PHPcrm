@@ -16,10 +16,12 @@
         <div id="content">
             <div class="container-fluid table-block">
                 <div class="row table-cell-block">
-                    <div class="col-sm-6 col-md-6">
-                        <h1 class="text-center login-title">Вход</h1>
+                    <div class="col-sm-4 col-md-4"></div>
+                    <div class="col-sm-4 col-md-4">
+                        
                         <div class="account-wall">
-                            <img class="profile-img" src="/images/user-login.png" alt="">
+                            <h1 class="text-center login-title">Вход</h1>
+                            <p class="subtitle">Логин: akichatov3, пароль: 123456</p>
                             <form method="post" class="form-signin" id="form-signin" name="form-signin">
                             <input type="hidden" name="action" value="login"> 
                                 <?php if(!empty($pageData['loginError'])) :?>
@@ -27,14 +29,10 @@
                                 <?php endif; ?>
                                 <input type="text" name="login" class="form-control" id="login" placeholder="Логин" required autofocus>
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Пароль" required>
-                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Вход"/>
+                                <input type="submit" class="btn btn-lg btn-danger btn-block" value="Вход"/>
                             </form>
-                        </div> 
-                        </div>
-                        <div class="col-sm-6 col-md-6">
-                        <h1 class="text-center login-title">Регистрация</h1>
-                        <div class="account-wall">
-                            <form method="post" class="form-signin" id="form-reg" name="form-reg">
+                            <h1 class="text-center login-title">Регистрация</h1>
+                                                <form method="post" class="form-signin" id="form-reg" name="form-reg">
                             <input type="hidden" name="action" value="register">
                                 <?php if(!empty($pageData['registerMsg'])) :?>
                                     <p><?php echo $pageData['registerMsg']; ?></p>
@@ -43,10 +41,11 @@
                                 <input type="text" name="login" class="form-control" id="regLogin" placeholder="Логин" required>
                                 <input type="email" name="email" class="form-control" id="regEmail" placeholder="Email" required>
                                 <input type="password" name="password" class="form-control" id="regPassword" placeholder="Пароль" required>
-                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Регистрация"/>
+                                <input type="submit" class="btn btn-lg btn-danger btn-block" value="Регистрация"/>
                             </form>
+                        </div> 
                         </div>
-                    </div>
+                    <div class="col-sm-4 col-md-4"></div>
                 </div>
             </div>
         </div>
