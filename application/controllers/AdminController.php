@@ -29,7 +29,6 @@ class AdminController extends Controller {
 
         $orders = $this->model->getOrders();
         $this->pageData['orders'] = $orders;
-        print_r($orders);
 
         $this->view->render($this->pageTpl, $this->pageData);
     }

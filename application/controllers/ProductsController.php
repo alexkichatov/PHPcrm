@@ -30,7 +30,7 @@ class ProductsController extends Controller {
         $this->pageData['pagination'] = $pagination;
         $this->view->render($this->pageTpl, $this->pageData);
 
-        if($_FILES) {
+       /* if($_FILES) {
             if($_FILES['csv']['type'] != 'text/csv' || $_FILES['csv']['type'] == '') {
                 $this->pageData['errors'] = "Ошибка! Возможно данный файл имеет некорректный формат";
             } else {
@@ -49,7 +49,7 @@ class ProductsController extends Controller {
                     $this->model->getAllProducts();
                 }
             }
-        }
+        }*/
     }
 
     public function getProduct() {
@@ -74,12 +74,14 @@ class ProductsController extends Controller {
             return;
         }*/
 
-        if(!isset($_POST['id']) || trim($_POST['name']) == '' || trim($_POST['price']) == '') {
+        if(!isset($_POST['id']) || trim($_POST['name']) == '' || trim($_POST['price']) == ''|| trim($_POST['quantity']) == '') {
             echo json_encode(array("success" => false, "text" => "Ошибка обновления данных"));
         } else {
             $productId = $_POST['id'];
             $productName = strip_tags(trim($_POST['name']));
             $productPrice = strip_tags(trim($_POST['price']));
+            $productQuantity = strip_tags(trim($_POST['quantity']));
+            $this->model->saveProductInfo($productId, $productName, $productPrice, $productQuantity);
             echo json_encode(array("success" => true, "text" => "Информация о товаре обновлена"));
         }
     }
@@ -91,11 +93,13 @@ class ProductsController extends Controller {
             return;
         }*/
 
-        if(empty($_POST) || trim($_POST['productName']) == '' || trim($_POST['productPrice']) == '') {
+        if(empty($_POST) || trim($_POST['productName']) == '' || trim($_POST['productPrice']) == ''|| trim($_POST['productQuantity']) == '') {
             echo json_encode(array("success" => false, "text" => "Не удалось добавить товар"));
         } else {
             $productName = strip_tags(trim($_POST['productName']));
             $productPrice = strip_tags(trim($_POST['productPrice']));
+            $productQuantity = strip_tags(trim($_POST['productQuantity']));
+            $this->model->addProduct($productName, $productPrice, $productQuantity);
             echo json_encode(array("success" => true, "text" => "Новый товар добавлен")); 
         }
     }

@@ -98,12 +98,11 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-4 col-md-4">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-money fa-5x"></i>
-                                    <img src="https://torex.ru/local/templates/torex2019/images/icons/employees-red.svg" width="100%">
+                                    <div class="order-img"></div>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
@@ -118,11 +117,13 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div class="panel panel-green">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-cart-plus fa-5x"></i>
+                                <div class="col-xs-3">
+                                    <div class="product-img"></div>
+                                </div>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
@@ -137,11 +138,11 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div class="panel panel-yellow">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-user-o fa-5x"></i>
+                                    <div class="client-img"></div>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
@@ -149,7 +150,7 @@
                                             echo $pageData['usersCount'];
                                         ?>
                                     </div>
-                                    <div>пользователей</div>
+                                    <div>клиентов</div>
                                 </div>
                             </div>
                         </div>
@@ -172,19 +173,27 @@
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>id заказа</th>
+                                                    <th>Номер заказа</th>
+                                                   <!-- <th>Дата</th>-->
+                                                    <th>ФИО клиента</th>
                                                     <th>Сумма</th>
-                                                    <th>Клиент</th>
-                                                    <th>Email</th>
-                                                </tr>
+                                                    <th>Адрес</th>
+                                                    <th>Телефон</th>
+                                                    <th>Статус</th>
+                                                    <th></th>
                                             </thead>
                                             <tbody>
                                                 <?php foreach($pageData['orders'] as $key=>$value) {
-                                                echo "<tr data-ng-click='openOrderDetails(". $value['id'].")'>";
+                                                echo "<tr>";
                                                     echo "<td>" . $value['id']. "</td>";
-                                                    echo "<td>" . $value['total'] . "</td>";
+                                                  //  echo "<td>" . $value['total'] . "</td>";
                                                     echo "<td>" . $value['fullName'] . "</td>";
-                                                    echo "<td>" . $value['email'] . "</td>";
+                                                    echo "<td>" . $value['total'] . "</td>";
+                                                    echo "<td>" . $value['address'] . "</td>";
+                                                    echo "<td>" . $value['phone'] . "</td>";
+                                                    echo "<td>" . $value['status'] . "</td>";
+                                                    echo "<td><button class='btn btn-default' data-ng-click='openOrderDetails(". $value['id'].")'>Просмотр</button><button class='btn btn-primary' data-ng-click='editOrder(". $value['id'].")'>Редактировать</button><button class='btn btn-danger' data-ng-click='deleteOrder(". $value['id'].")'>Удалить</button></td>";
+                                                    
                                                 echo "</tr>";
                                                 }
                                                 ?>

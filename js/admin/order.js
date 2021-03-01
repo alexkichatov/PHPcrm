@@ -13,7 +13,24 @@ order.controller("orderController", function($scope, $http, $window){
             $window.location.href = '/admin';
         })
     }
+    $scope.editOrder = function(id) {
+        $scope.productID = angular.element("#productID").val();
+        $scope.userId = angular.element("#userId").val();
+        $scope.orderStatus = angular.element("#orderStatus").val();
+        $scope.orderQuantity = angular.element("#orderQuantity").val();
+alert(angular.element("#orderStatus").val());
+        $http({
+            method: "POST",
+            url: "http://torex2.omnibank.ru/admin/orders/saveOrder",
+            data: $.param({orderID: id, productID: $scope.productID, userId: $scope.userId, orderStatus: $scope.orderStatus, quantity: $scope.orderQuantity}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result){
+            if(result.data.success) {
+                $window.location.href = '/admin/';
+            }
+        })
 
+    }
     $scope.deleteOrder = function(id) {
         $http({
             method: "POST",

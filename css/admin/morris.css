@@ -1,2 +1,20 @@
 .morris-hover{position:absolute;z-index:1000}.morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255,255,255,0.8);border:solid 2px rgba(230,230,230,0.8);font-family:sans-serif;font-size:12px;text-align:center}.morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0}
 .morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0}
+
+.order-img, .product-img, .client-img {
+    background-repeat: no-repeat;
+    background-size: 70px auto;
+    height: 70px;
+    width: 70px;
+    margin-left: 0;
+}
+.order-img {
+    background-image: url("/images/shop-red.svg");
+}
+.product-img {
+    background-image: url("/images/warehouse-red.svg");
+}
+.client-img {
+    background-image: url("/images/employees-red.svg");
+}
+

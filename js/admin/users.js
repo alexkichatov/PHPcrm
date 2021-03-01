@@ -79,7 +79,7 @@ users.controller("usersController", function($scope, $http, $window){
 
 users.directive('editUser', function(){
     return {
-        templateUrl: "/views/edit-user-tpl.php",
+        templateUrl: "/application/views/edit-user-tpl.php",
         restrict: "E",
         replace: true,
         transclude: true,

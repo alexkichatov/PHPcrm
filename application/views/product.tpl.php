@@ -14,6 +14,12 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="productQuantity" class="col-sm-3">Складской остаток, шт.</label>
+        <div class="col-sm-9">
+            <input type="text" data-ng-model="productQuantity" id="productQuantity" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
             <button class="btn btn-default">Сохранить</button>
             <button class="btn btn-danger" type="button" data-ng-click="deleteProduct(productId)">Удалить</button>

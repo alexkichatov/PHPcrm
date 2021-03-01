@@ -104,7 +104,18 @@
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Склад
+                            <form name="searchProductForm"  data-ng-submit="searchProduct()"  id="searchform">
+                                <div class="input-group">
+                                    <div class="form-outline" style="float: left;">
+                                        <input type="search" name="search" data-ng-model="search" id="search"  class="form-control" />
+                                        <label class="form-label" for="form1">Поиск</label>
+                                    </div>
+                                    <button class="btn btn-primary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    
+                                </div>
+                            </form>
                         </div>
 
 
@@ -116,9 +127,10 @@
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>id товара</th>
+                                                    <th>ID</th>
                                                     <th>Наименование товара</th>
-                                                    <th>Цена</th>
+                                                    <th>Цена, руб.</th>
+                                                    <th>Складской остаток, шт.</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -128,6 +140,11 @@
                                                             <td><?php echo $value['id']; ?></td>
                                                             <td><a data-ng-click="getInfoByProductId(<?php echo $value['id']; ?>)" href="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></a></td>
                                                             <td><?php echo $value['price']; ?></td>
+                                                            <td><?php echo $value['quantity']; ?></td>
+                                                            <td>
+                                                                <a data-ng-click="getInfoByProductId(<?php echo $value['id']; ?>)" href="<?php echo $value['id']; ?>"><button class="btn btn-primary">Изменить</button></a>
+                                                                <button class="btn btn-danger" data-ng-click="deleteOrder(<?php echo $value['id']; ?>)">Удалить</button>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                             </tbody>
@@ -162,27 +179,33 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="newProductPrice" class="col-sm-3">Стоимость товара</label>
+                            <label for="newProductPrice" class="col-sm-3">Цена товара, руб.</label>
                             <div class="col-sm-9">
                                 <input type="text" name="newProductPrice" data-ng-model="newProductPrice" id="newProductPrice" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="newProductQuantity" class="col-sm-3">Складской остаток, шт.</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="newProductQuantity" data-ng-model="newProductQuantity" id="newProductQuantity" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-9">
-                                <button class="btn btn-default">Добавить</button>
+                                <button class="btn btn-primary">Добавить</button>
                             </div>
                         </div>
                     </form>
                 </div>
 
-                <div class="col-lg-12">
+                <!--<div class="col-lg-12">
                     <h2>Загрузить CSV файл с товарами</h2>
                     <form class="form-horizontal" method="post" enctype="multipart/form-data">
                         <label for="exampleInputFile">Загрузите CSV файл</label>
                         <input type="file" name="csv">
                         <button class="btn btn-default">Загрузить</button>
                     </form>
-                </div>
+                </div>-->
             </div>
             <!-- /.row -->
         </div>

@@ -30,7 +30,11 @@ class AdminModel extends Model {
         $sql = "SELECT
                     orders.id,
                     orders.amount as total,
+                    orders.status,
+                    products.price,
                     users.fullName,
+                    users.address,
+                    users.phone,
                     users.email
                 FROM orders
                 INNER JOIN users ON users.id = orders.user_id

@@ -21,7 +21,6 @@ class IndexModel extends Model {
             $_SESSION['userId'] = $res['id'];
             $_SESSION['role_id'] = $res['role_id'];
             header("Location: /admin");
-          //  print_r($_SESSION['user']);
         } else {
             return false;
         }

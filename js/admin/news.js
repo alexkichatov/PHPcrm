@@ -13,7 +13,7 @@ news.controller('newsController', function($scope, $http, $uibModal){
                 var modalWindow = $uibModal.open({
                     animation: true,
                     controller: "modalWindowController",
-                    templateUrl: '/views/modal.tpl.php', 
+                    templateUrl: '/application/views/modal.tpl.php', 
                     resolve: {
                         newsData: function() {
                             return $scope.newsData;

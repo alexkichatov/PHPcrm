@@ -2,7 +2,7 @@ var app = angular.module('products', ["ngRoute"]);
 app.config(function($routeProvider, $locationProvider){
     $routeProvider
         .when("/:id", {
-            templateUrl : "/views/product.tpl.php"
+            templateUrl : "/application/views/product.tpl.php"
         })
      $locationProvider.html5Mode(true);
 })
@@ -18,17 +18,19 @@ app.controller('productsController', function($scope, $http, $window) {
             $scope.productId = result.data.id;
             $scope.productName = result.data.name;
             $scope.productPrice = result.data.price;
+            $scope.productQuantity = result.data.quantity;
         })
     }
 
     $scope.saveProduct = function() {
         $scope.productName = angular.element("#productName").val();
         $scope.productPrice = angular.element("#productPrice").val();
+        $scope.productQuantity = angular.element("#productQuantity").val();
 
         $http({
             method: "POST",
             url: "http://torex2.omnibank.ru/admin/products/saveProduct",
-            data: $.param({id: $scope.productId, name: $scope.productName, price: $scope.productPrice}),
+            data: $.param({id: $scope.productId, name: $scope.productName, price: $scope.productPrice, quantity: $scope.productQuantity}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(result){
             if(result.data.success) {
@@ -42,13 +44,18 @@ app.controller('productsController', function($scope, $http, $window) {
         $http({
             method: "POST",
             url: "http://torex2.omnibank.ru/admin/products/addProduct",
-            data: $.param({productName: $scope.newProductName, productPrice: $scope.newProductPrice}),
+            data: $.param({productName: $scope.newProductName, productPrice: $scope.newProductPrice, productQuantity: $scope.newProductQuantity}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(result){
             if(result.data.success) {
                 $window.location.reload();
             }
         })
+
+    }
+        $scope.searchProduct = function() {
+            $scope.search = angular.element("#search").val();
+            $window.location.href = '/admin/products/?search='+$scope.search+'';
 
     }
 

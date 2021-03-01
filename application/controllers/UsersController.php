@@ -3,27 +3,11 @@
 class UsersController extends Controller{
 
     private $pageTpl = "/application/views/users.tpl.php";
-    private $mailTpl = "/application/views/mail/newUser.tpl.html";
 
     public function __construct() {
         $this->model = new UsersModel();
         $this->view = new View();
         $this->utils = new Utils();
-    }
-
-    public function sendRegisterEmail($fullName, $login, $password, $email) {
-
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-        $emailText = file_get_contents(ROOT . $this->mailTpl);
-        $emailText = str_replace('%fullName%', $fullName, $emailText);
-        $emailText = str_replace('%login%', $login, $emailText);
-        $emailText = str_replace('%password%', $password, $emailText);
-        $emailText = str_replace('%email%', $email, $emailText);
-
-        mail($email, "Для вас создана учетная запись", $emailText, $headers);
-
     }
 
     public function index() {
@@ -126,8 +110,7 @@ class UsersController extends Controller{
             $passwordForEmail = strip_tags(trim($_POST['password']));
             $newRole = $_POST['role'];
             $this->model->addNewUser($newLogin, $newUser, $newEmail, $newPassword, $newRole);
-            echo json_encode(array("success" => true, "text" => "Новый пользователь добавлен")); 
-            $this->sendRegisterEmail($newUser, $newLogin, $passwordForEmail, $newEmail);   
+            echo json_encode(array("success" => true, "text" => "Новый пользователь добавлен"));  
         } else {
             echo json_encode(array("success" => false, "text" => "Заполните все данные"));
         }
